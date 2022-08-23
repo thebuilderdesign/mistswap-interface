@@ -69,9 +69,14 @@ const FarmListItem = ({ farm }) => {
   const poolFraction = (Number.parseFloat(amount?.toFixed()) / farm.chefBalance) || 0
   const chefPart = (farm.chefBalance / farm.totalSupply) || 0;
   const token0Reserve = farm.pool.reserves ? (farm.pool.reserves.reserve0 as BigNumber).toString() : 0
-  const token0Amount = CurrencyAmount.fromRawAmount(farm.pair.token0, JSBI.BigInt(token0Reserve)).multiply(Math.round(poolFraction * chefPart * 1e10)).divide(1e10)
+  let token0Amount = CurrencyAmount.fromRawAmount(farm.pair.token0, JSBI.BigInt(0));
+  try {
+    token0Amount = CurrencyAmount.fromRawAmount(farm.pair.token0, JSBI.BigInt(token0Reserve)).multiply(Math.round(poolFraction * chefPart * 1e10) || 0).divide(1e10)                                              } catch (e) { console.error(e); }
   const token1Reserve = farm.pool.reserves ? (farm.pool.reserves.reserve1 as BigNumber).toString() : 0
-  const token1Amount = CurrencyAmount.fromRawAmount(farm.pair.token1, JSBI.BigInt(token1Reserve)).multiply(Math.round(poolFraction * chefPart * 1e10)).divide(1e10)
+  let token1Amount = CurrencyAmount.fromRawAmount(farm.pair.token0, JSBI.BigInt(0));
+  try {
+    token1Amount = CurrencyAmount.fromRawAmount(farm.pair.token1, JSBI.BigInt(token1Reserve)).multiply(Math.round(poolFraction * chefPart * 1e10) || 0).divide(1e10)
+  } catch (e) { console.error(e); }
   const token0Name = farm.pool.token0 === farm.pair.token0.id ? farm.pair.token0.symbol : farm.pair.token1.symbol
   const token1Name = farm.pool.token1 === farm.pair.token1.id ? farm.pair.token1.symbol : farm.pair.token0.symbol
 
