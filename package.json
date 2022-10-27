@@ -56,7 +56,7 @@
     "@lingui/remote-loader": "^3.10.4",
     "@metamask/jazzicon": "^2.0.0",
     "@mistswapdex/core": "0.0.3",
-    "@mistswapdex/default-token-list": "0.0.53",
+    "@mistswapdex/default-token-list": "0.0.54",
     "@mistswapdex/sdk": "^0.0.19",
     "@mistswapdex/xmist-governance": "^0.0.1",
     "@next/bundle-analyzer": "^11.1.0",
